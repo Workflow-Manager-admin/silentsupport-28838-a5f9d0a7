@@ -2,9 +2,21 @@
 // api.js - API helper functions for SilentSupport frontend
 //
 
-const BASE_URL =
-  process.env.REACT_APP_API_URL ||
-  "https://vscode-internal-8853-qa.qa01.cloud.kavia.ai:3001";
+/**
+ * Returns the API base URL.
+ * Tries to use window.REACT_APP_API_URL if set, otherwise falls back to default.
+ * Fixes "process is not defined" issue on client/browser side.
+ */
+function getApiBaseUrl() {
+  // PUBLIC_INTERFACE
+  if (typeof window !== "undefined" && window.REACT_APP_API_URL) {
+    return window.REACT_APP_API_URL;
+  }
+  // Fallback default
+  return "https://vscode-internal-8853-qa.qa01.cloud.kavia.ai:3001";
+}
+
+const BASE_URL = getApiBaseUrl();
 
 // PUBLIC_INTERFACE
 export async function createTicket({ title, description }) {

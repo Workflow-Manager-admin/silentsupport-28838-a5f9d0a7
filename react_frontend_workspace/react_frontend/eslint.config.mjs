@@ -13,6 +13,7 @@ export default [
       globals: {
         document: true,
         window: true,
+        globalThis: true,
         test: true,
         expect: true
       }
